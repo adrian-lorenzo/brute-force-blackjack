@@ -29,12 +29,13 @@ func (iter *Iterator) GetComb() []int {
 
 // NewComb - Creates a new combination
 func (iter *Iterator) newComb() {
-	if iter.comb[0] == (iter.numberElements - iter.chosen) {
-		iter.finished = true
-	}
 
 	for i := 0; i < iter.chosen; i++ {
 		if iter.comb[i] == (iter.numberElements - iter.chosen + i) {
+			if i == 0 {
+				iter.finished = true
+				break
+			}
 			iter.comb[i-1]++
 			for j := i; j < iter.chosen; j++ {
 				iter.comb[j] = iter.comb[j-1] + 1
