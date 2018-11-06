@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/adrianlorenzodev/brute-force/iterator"
+	"github.com/adrianlorenzodev/brute-force/GO/iterator"
 )
 
 func main() {
