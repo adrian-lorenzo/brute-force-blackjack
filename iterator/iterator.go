@@ -1,58 +1,63 @@
-package iterators
+package iterator
 
 // Iterator - for iterating through combinations
 // comb: Last combination array
 // numberElements: Number of elements to combinate with
 // chosen: Size of each combination
-// indexIterate: Index of the array where the data is being altered
-// max: Max value that the value at indexInterate position will have
 type Iterator struct {
-	comb                                      []int
-	indexIterate, max, numberElements, chosen int
+	comb                   []int
+	numberElements, chosen int
+	finished               bool
 }
 
-// Initilization of the iterator
-func (iter *Iterator) initIterator(numberElements, chosen int) {
+// InitIterator - Initilization of the iterator
+func InitIterator(numberElements, chosen int) *Iterator {
+	iter := Iterator{}
 	iter.numberElements = numberElements
 	iter.chosen = chosen
-	iter.reset()
+	iter.Reset()
+	return &iter
 }
 
-// Return a []int representing one combination
-func (iter *Iterator) getComb() []int {
+// GetComb - Return a []int representing one combination
+func (iter *Iterator) GetComb() []int {
 	defer iter.newComb()
-	return iter.comb
+	result := make([]int, iter.chosen)
+	copy(result, iter.comb)
+	return result
 }
 
-// Creates a new combination
-func (iter *Iterator) newComb() bool {
-	if iter.indexIterate == -1 {
-		return false
+// NewComb - Creates a new combination
+func (iter *Iterator) newComb() {
+	if iter.comb[0] == (iter.numberElements - iter.chosen) {
+		iter.finished = true
 	}
 
-	iter.comb[iter.indexIterate]++
-	if iter.max == iter.comb[iter.indexIterate] {
-		iter.max--
-		iter.indexIterate--
+	for i := 0; i < iter.chosen; i++ {
+		if iter.comb[i] == (iter.numberElements - iter.chosen + i) {
+			iter.comb[i-1]++
+			for j := i; j < iter.chosen; j++ {
+				iter.comb[j] = iter.comb[j-1] + 1
+			}
+			break
+		} else if i == (iter.chosen - 1) {
+			iter.comb[i]++
+		}
 	}
 
-	return true
 }
 
-func (iter *Iterator) hasNext() bool {
-	if iter.indexIterate == -1 {
-		return false
-	}
-
-	return true
+// HasNext - returns true if there is another combination to get
+func (iter *Iterator) HasNext() bool {
+	return !iter.finished
 }
 
-// Resets the iterator
-func (iter *Iterator) reset() {
+// Reset - Resets the iterator
+func (iter *Iterator) Reset() {
+	iter.comb = make([]int, iter.chosen)
 	for i := 0; i < iter.chosen; i++ {
 		iter.comb[i] = i
 	}
 
-	iter.indexIterate = iter.chosen
-	iter.max = iter.numberElements
+	iter.finished = false
 }
