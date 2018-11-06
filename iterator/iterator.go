@@ -35,10 +35,11 @@ func (iter *Iterator) newComb() {
 			if i == 0 {
 				iter.finished = true
 				break
-			}
-			iter.comb[i-1]++
-			for j := i; j < iter.chosen; j++ {
-				iter.comb[j] = iter.comb[j-1] + 1
+			} else {
+				iter.comb[i-1]++
+				for j := i; j < iter.chosen; j++ {
+					iter.comb[j] = iter.comb[j-1] + 1
+				}
 			}
 			break
 		} else if i == (iter.chosen - 1) {
