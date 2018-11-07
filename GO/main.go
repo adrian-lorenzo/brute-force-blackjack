@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/adrianlorenzodev/brute-force/GO/iterator"
-	_ "github.com/adrianlorenzodev/brute-force/GO/parser"
+	"github.com/adrianlorenzodev/brute-force/go/iterator"
+	_ "github.com/adrianlorenzodev/brute-force/go/parser"
 )
 
 func main() {
