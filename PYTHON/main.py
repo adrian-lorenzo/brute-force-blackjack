@@ -1,5 +1,5 @@
 from timeit import default_timer as timer
-from iterator2 import iterador
+from iterator.iterator import iterador
 
 if __name__ == '__main__':
     a = iterador(20,10)
