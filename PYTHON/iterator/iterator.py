@@ -1,3 +1,5 @@
+
+
 class iterador:
 
     def __init__(self, numberElements, size):
@@ -7,30 +9,33 @@ class iterador:
 
     def GetComb(self):
         result = self.comb.copy()
-        self.newComb()
         return result
 
     def newComb(self):
-        for i in range(0,self.size):
-            if self.comb[i] == (self.numberElements - self.size + i):
-                if i == 0:
-                    self.finished = True
-                    break
-                else:
-                    self.comb[i-1] = self.comb[i-1] + 1
-                    for j in range (i,self.size):
-                        self.comb[j] = self.comb[j-1] + 1
-                break
-            elif i == (self.size -1 ):
-                self.comb[i] = self.comb[i] + 1
-                
+        last = self.size - 1
+        if self.comb [last] < (self.numberElements - self.size + last):
+            self.comb[last] = self.comb[last] + 1
+        else:
 
+            j = last - 1
+            while self.comb[j] == (self.numberElements - self.size + j ):
+                if j == 0:
+                    return False
+                j = j - 1
+            self.comb[j] = self.comb[j] + 1   
+            for k in range(j + 1,self.size):
+                self.comb[k] = self.comb[k-1] + 1
+        return True
+            
     def HasNext(self):
-        return not self.finished
+        return self.newComb()
 
     def reset(self):
         self.comb = []
         for i in range(0,self.size):
             self.comb.append(i)
         
-        self.finished = False
+        self.comb[self.size - 1] = self.comb[self.size - 1] - 1 
+
+
+
