@@ -11,7 +11,7 @@ function iteratorClass () {
         lastCombination = [...Array(n).keys()];
         lastCombination[n-1]--;
         completedCombinations = 0;
-        MAX_COMBINATIONS = calulateCombinations(m, n);        
+        MAX_COMBINATIONS = calulateCombinations(m, n);                
     }
 
     function hasNext () {
@@ -40,6 +40,8 @@ function iteratorClass () {
         lastCombination = currentCombination;
         return currentCombination;
     }
+
+    
 
     return {
         init,
