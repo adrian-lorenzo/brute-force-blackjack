@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-
 	"github.com/adrianlorenzodev/brute-force/GO/iterator"
 )
 

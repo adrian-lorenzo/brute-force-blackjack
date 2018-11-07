@@ -2,14 +2,14 @@ function iteratorClass () {
     let setSize;
     let combinationSize;
     let MAX_COMBINATIONS;
-    let lastCombination;
+    let currentCombination;
     let completedCombinations;
     
     function init (m, n) {
         setSize = m;
         combinationSize = n;
-        lastCombination = [...Array(n).keys()];
-        lastCombination[n-1]--;
+        currentCombination = [...Array(n).keys()];
+        currentCombination[n-1]--;
         completedCombinations = 0;
         MAX_COMBINATIONS = calulateCombinations(m, n);                
     }
@@ -19,33 +19,45 @@ function iteratorClass () {
     }
 
     function next () {
-        let currentCombination = lastCombination;
-        for (let i = combinationSize-1; i >= 0; i--) {
-            if (currentCombination[i] < setSize - combinationSize + i) {
-                currentCombination[i]++;
-                break;
-            } else {
-                let j = i-1;
-                while (currentCombination[j] >= setSize - combinationSize + j) {
-                    j--;
-                }
-                currentCombination[j]++;                
-                for (let k = j+1; k < combinationSize; k++) {
-                    currentCombination[k] = currentCombination[k - 1] + 1;
-                }
-                break;
+        let i = combinationSize-1
+        if (currentCombination[i] < setSize - combinationSize + i) {
+            currentCombination[i]++;
+        } else {
+            let j = i-1;
+            while (currentCombination[j] >= setSize - combinationSize + j) {
+                j--;
+            }
+            currentCombination[j]++;                
+            for (let k = j+1; k < combinationSize; k++) {
+                currentCombination[k] = currentCombination[k - 1] + 1;
             }
         }
         completedCombinations++;
-        lastCombination = currentCombination;
         return currentCombination;
     }
 
-    
+    function aNext() {
+        for (let i = 0; i < combinationSize; i++) {
+            if (currentCombination[i] === (setSize - combinationSize + i)) {
+                currentCombination[i-1]++
+                for (let j = i; j < combinationSize; j++) {
+                    currentCombination[j] = currentCombination[j-1] + 1;
+                }
+                break;
+            } else if (i == (combinationSize - 1)) {
+                currentCombination[i]++
+            }
+        }
+        completedCombinations++;
+        return currentCombination
+    }
+
+
 
     return {
         init,
         hasNext,
+        aNext,
         next
     }
 }
