@@ -1,8 +1,8 @@
-from iterator import iterador
 from timeit import default_timer as timer
+from iterator.iterator import iterador
 
 if __name__ == '__main__':
-    a = iterador(50,10)
+    a = iterador(20,10)
     start = timer()
     while a.HasNext():
         print(a.GetComb())
