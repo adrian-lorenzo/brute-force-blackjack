@@ -4,18 +4,23 @@ function iteratorClass () {
     let MAX_COMBINATIONS;
     let currentCombination;
     let completedCombinations;
+
+    let isNext;
     
     function init (m, n) {
         setSize = m;
         combinationSize = n;
         currentCombination = [...Array(n).keys()];
         currentCombination[n-1]--;
-        completedCombinations = 0;
-        MAX_COMBINATIONS = calulateCombinations(m, n);                
+        // completedCombinations = 0;
+        // MAX_COMBINATIONS = calulateCombinations(m, n); 
+        
+        isNext = true;
     }
 
     function hasNext () {
-        return completedCombinations < MAX_COMBINATIONS;
+        // return completedCombinations < MAX_COMBINATIONS;
+        return isNext;
     }
 
     function next () {
@@ -25,6 +30,9 @@ function iteratorClass () {
         } else {
             let j = i-1;
             while (currentCombination[j] >= setSize - combinationSize + j) {
+                if (j === 0) {
+                    isNext = false;
+                }
                 j--;
             }
             currentCombination[j]++;                
@@ -32,7 +40,6 @@ function iteratorClass () {
                 currentCombination[k] = currentCombination[k - 1] + 1;
             }
         }
-        completedCombinations++;
         return currentCombination;
     }
 
@@ -48,7 +55,6 @@ function iteratorClass () {
                 currentCombination[i]++
             }
         }
-        completedCombinations++;
         return currentCombination
     }
 
@@ -62,16 +68,16 @@ function iteratorClass () {
     }
 }
 
-function calulateCombinations (m, n) {
-    let num = m;
-    let denom = n;
-    for(let i = m-1; i>m-n; i--) {
-        num *= i;
-    }
-    for(let j = n-1; j>0; j--) {
-        denom *= j 
-    }
-    return num/denom
-}
+// function calulateCombinations (m, n) {
+//     let num = m;
+//     let denom = n;
+//     for(let i = m-1; i>m-n; i--) {
+//         num *= i;
+//     }
+//     for(let j = n-1; j>0; j--) {
+//         denom *= j 
+//     }
+//     return num/denom
+// }
 
-module.exports = { iteratorClass, calulateCombinations };
+module.exports = { iteratorClass };
