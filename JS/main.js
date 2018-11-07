@@ -5,7 +5,7 @@ function main () {
     Iterator.init(20,10);
     console.time("Loop");
     while (Iterator.hasNext()) {        
-        // console.log(Iterator.next());
+        //console.log(Iterator.next());
         
         Iterator.next();
     }
