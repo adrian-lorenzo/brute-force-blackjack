@@ -1,10 +1,9 @@
 from timeit import default_timer as timer
-from iterator.iterator import iterador
+from fileParser.fileReader import fileToArray
+from cards.blackjack import blackjackProb
+import random
 
 if __name__ == '__main__':
-    a = iterador(20,10)
-    start = timer()
-    while a.HasNext():
-        print(a.GetComb())
-    end = timer()
-    print(end - start)
+    nums = fileToArray("pruebita.txt")
+    random.shuffle(nums)
+    blackjackProb(nums,10,2)
