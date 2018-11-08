@@ -3,8 +3,10 @@ package parser
 import (
 	"bufio"
 	"log"
+	"math/rand"
 	"os"
 	"strconv"
+	"time"
 )
 
 //GetData -
@@ -31,4 +33,14 @@ func GetData(path string) []int {
 	}
 
 	return data
+}
+
+func Shuffle(data []int) []int {
+	var result []int
+	randomizer := rand.New(rand.NewSource(time.Now().Unix()))
+	indexes := randomizer.Perm(len(data))
+	for _, index := range indexes {
+		result = append(result, data[index])
+	}
+	return result
 }

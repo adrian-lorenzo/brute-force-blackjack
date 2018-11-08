@@ -31,9 +31,9 @@ func (iter *Iterator) newComb() bool {
 	if iter.comb[last] != (iter.numberElements - iter.chosen + last) {
 		iter.comb[last]++
 	} else {
-		i := last - 1
+		i := last
 		for iter.comb[i] == (iter.numberElements - iter.chosen + i) {
-			if i == 0 {
+			if i <= 0 {
 				return false
 			}
 			i--
