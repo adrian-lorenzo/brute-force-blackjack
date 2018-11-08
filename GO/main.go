@@ -12,57 +12,82 @@ import (
 	"github.com/adrianlorenzodev/brute-force/go/parser"
 )
 
-func main() {
-	help := flag.Bool("help", false, "Print help about the command")
-	intense := flag.Bool("intense", false, "Print all probabilties from 1 to 10 cards")
-	flag.Parse()
-	args := flag.Args()
+var (
+	help, intense, nopick *bool //flags for options
+	args                  []string
+)
 
+func init() {
+	help = flag.Bool("help", false, "Print help about the command")
+	intense = flag.Bool("intense", false, "Print all probabilties from 1 to 8 cards")
+	nopick = flag.Bool("nopick", false, "Print probability without picking any card")
+
+	flag.Parse()
+	args = flag.Args()
+}
+
+func main() {
+	//Command completion checker
 	if len(args) < 2 {
 		if *help {
-			fmt.Printf("brute-force <Card> <Number of cards>\n\n\n")
+			fmt.Printf("brute-force <Card> <Number of cards>/-intense\n" +
+				"-intense: \t Return the probability from 1 to 8\n -nopick: \t Returns the probability without picking")
 			os.Exit(2)
-		} else if len(args) < 1 || (len(args) == 1 && !*intense) {
+		} else if (len(args) == 1 && !*intense && !*nopick) || (len(args) == 0 && (!*intense || !*nopick)) {
 			log.Fatal("It's necessary more arguments")
 		}
 	}
 
-	cardSelected, errorAtoi := strconv.Atoi(args[0])
+	cards := parser.GetNumbers("deck.dat")
+	var cardSelected, numCards, numArg int
+	var errorAtoi error
+
+	if !*nopick {
+		cardSelected, errorAtoi = strconv.Atoi(args[0])
+		if errorAtoi != nil {
+			log.Fatal(errorAtoi)
+		}
+		for i, card := range cards {
+			if card == cardSelected {
+				cards = append(cards[:i], cards[i+1:]...)
+				break
+			}
+		}
+		numArg = 1
+	} else {
+		cardSelected = 0
+		numArg = 0
+	}
+
+	numCards, errorAtoi = strconv.Atoi(args[numArg])
 	if errorAtoi != nil {
 		log.Fatal(errorAtoi)
 	}
 
-	cards := parser.Shuffle(parser.GetData("deck.dat"))
-	for i, card := range cards {
-		if card == cardSelected {
-			cards = append(cards[:i], cards[i+1:]...)
-			break
-		}
-	}
-
-	if *intense {
-		for i := 1; i < 11; i++ {
-			probabilityCheck(cards, cardSelected, i)
-		}
-	} else {
-		num, errorAtoi := strconv.Atoi(args[1])
-		if errorAtoi != nil {
-			log.Fatal(errorAtoi)
-		}
-		probabilityCheck(cards, cardSelected, num)
-	}
+	blackJack(cards, cardSelected, numCards, *intense)
 
 }
 
-func probabilityCheck(cards []int, cardSelected, num int) {
-	iter := iterator.InitIterator(len(cards), num)
-	start := time.Now().UnixNano() / int64(time.Millisecond)
+func blackJack(cards []int, cardSelected, numCards int, intense bool) {
+	if intense {
+		for i := 1; i < 9; i++ {
+			probabilityCheck(cards, cardSelected, i)
+		}
+	} else {
+		probabilityCheck(cards, cardSelected, numCards)
+	}
+}
+
+func probabilityCheck(cards []int, cardSelected, numCards int) {
+	iter := iterator.InitIterator(len(cards), numCards)
 
 	tries := 0.00
 	wins := 0.00
 
+	start := time.Now().UnixNano() / int64(time.Millisecond)
+
 	for iter.HasNext() {
-		comb := iter.GetComb()
+		comb := iter.Next()
 		result := 0
 		for _, number := range comb {
 			result += cards[number]
@@ -75,6 +100,6 @@ func probabilityCheck(cards []int, cardSelected, num int) {
 		tries++
 	}
 
-	fmt.Printf("The probability of not passing in blackjack with a %d choosing %d cards is of %f%%. TIME: %dms\n", cardSelected, num,
-		((wins / tries) * 100), (time.Now().UnixNano()/int64(time.Millisecond))-start)
+	fmt.Printf("The probability of not passing in blackjack with a %d choosing %d cards is of %f%%. TIME: %dms\n",
+		cardSelected, numCards, ((wins / tries) * 100), (time.Now().UnixNano()/int64(time.Millisecond))-start)
 }

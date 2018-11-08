@@ -1,46 +1,48 @@
 package iterator
 
 // Iterator - for iterating through combinations
-// comb: Last combination array
-// numberElements: Number of elements to combinate with
-// chosen: Size of each combination
+// combination []int - Last combination array
+// numberElements int - Number of elements to combinate with
+// combinationSize int - Size of each combination
 type Iterator struct {
-	comb                   []int
-	numberElements, chosen int
+	combination                     []int
+	numberElements, combinationSize int
 }
 
 // InitIterator - Initilization of the iterator
-func InitIterator(numberElements, chosen int) *Iterator {
+// numberElements int - numberElements to choose from when combinating
+// combinationSize int - size of the combinations
+func InitIterator(numberElements, combinationSize int) *Iterator {
 	iter := Iterator{}
 	iter.numberElements = numberElements
-	iter.chosen = chosen
+	iter.combinationSize = combinationSize
 	iter.Reset()
 	return &iter
 }
 
-// GetComb - Return a []int representing one combination
-func (iter *Iterator) GetComb() []int {
-	result := make([]int, iter.chosen)
-	copy(result, iter.comb)
+// Next - Return a []int representing one combination
+func (iter *Iterator) Next() []int {
+	result := make([]int, iter.combinationSize)
+	copy(result, iter.combination)
 	return result
 }
 
 // NewComb - Creates a new combination
 func (iter *Iterator) newComb() bool {
-	last := iter.chosen - 1
-	if iter.comb[last] != (iter.numberElements - iter.chosen + last) {
-		iter.comb[last]++
+	last := iter.combinationSize - 1
+	if iter.combination[last] != (iter.numberElements - iter.combinationSize + last) {
+		iter.combination[last]++
 	} else {
 		i := last
-		for iter.comb[i] == (iter.numberElements - iter.chosen + i) {
+		for iter.combination[i] == (iter.numberElements - iter.combinationSize + i) {
 			if i <= 0 {
 				return false
 			}
 			i--
 		}
-		iter.comb[i]++
-		for j := i + 1; j < iter.chosen; j++ {
-			iter.comb[j] = iter.comb[j-1] + 1
+		iter.combination[i]++
+		for j := i + 1; j < iter.combinationSize; j++ {
+			iter.combination[j] = iter.combination[j-1] + 1
 		}
 	}
 	return true
@@ -53,8 +55,8 @@ func (iter *Iterator) HasNext() bool {
 
 // Reset - Resets the iterator
 func (iter *Iterator) Reset() {
-	for i := 0; i < iter.chosen; i++ {
-		iter.comb = append(iter.comb, i)
+	for i := 0; i < iter.combinationSize; i++ {
+		iter.combination = append(iter.combination, i)
 	}
-	iter.comb[iter.chosen-1]--
+	iter.combination[iter.combinationSize-1]--
 }

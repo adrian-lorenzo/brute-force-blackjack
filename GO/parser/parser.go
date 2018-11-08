@@ -9,8 +9,9 @@ import (
 	"time"
 )
 
-//GetData -
-func GetData(path string) []int {
+// GetNumbers - Parses data from text file, line by line, returning an slice of int
+// path string - Path to the text file
+func GetNumbers(path string) []int {
 	fd, errorOpen := os.Open(path)
 	if errorOpen != nil {
 		log.Fatal(errorOpen)
@@ -35,6 +36,8 @@ func GetData(path string) []int {
 	return data
 }
 
+// Shuffle - Shuffles the elements inside a slice of integers
+// data []int - Slice to shuffle
 func Shuffle(data []int) []int {
 	var result []int
 	randomizer := rand.New(rand.NewSource(time.Now().Unix()))
