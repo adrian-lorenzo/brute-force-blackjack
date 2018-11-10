@@ -1,5 +1,3 @@
-
-
 class iterador:
 
     def __init__(self, numberElements, size):
@@ -27,7 +25,7 @@ class iterador:
                 self.comb[k] = self.comb[k-1] + 1
         return True
             
-    def HasNext(self):
+    def hasNext(self):
         return self.newComb()
 
     def reset(self):
