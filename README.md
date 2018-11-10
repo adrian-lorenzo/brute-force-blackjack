@@ -1,5 +1,5 @@
 # brute-force
-### Project for algorithm analysis practice of brute-force strategies in go, javascript and python
+### Project for algorithm analysis practice of brute-force strategies in Go, Javascript and Python
 
 #### Go
 Remember to set the project at `$GOPATH/src/github.com/adrianlorenzodev/brute-force/GO/`. You can also get it with the following command `go get github.com:adrianlorenzo/brute-force/GO`
