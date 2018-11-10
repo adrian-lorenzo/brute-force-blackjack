@@ -1,9 +1,22 @@
-from timeit import default_timer as timer
+import sys
 from fileParser.fileReader import fileToArray
-from cards.blackjack import blackjackProb
+from cards.blackjack import blackjack
 import random
 
+def getParameters(parameters):
+    if len(parameters) > 1:
+        if parameters[1] == "--help":
+            print("--Use -i for intense mode: return probability from 1 to 11\n" + 
+            "--No parameters for normal use")
+            return -1
+        if parameters[1] == "-i":
+            return 1
+        else: 
+            print("--Use --help to get information about the command")
+            return -1
+
 if __name__ == '__main__':
+    value = getParameters(sys.argv)
     nums = fileToArray("pruebita.txt")
     random.shuffle(nums)
-    blackjackProb(nums,10,2)
+    blackjack(nums,5,2,value)
