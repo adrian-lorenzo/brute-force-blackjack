@@ -20,7 +20,9 @@ Options:
 #### Go
 Remember to set the project at `$GOPATH/src/github.com/adrianlorenzodev/brute-force/GO/`. You can also get it with the following command `go get github.com:adrianlorenzo/brute-force/GO`.
 
-We have provided a build script (`builder.sh`) to build the program easily, generating the program binary (`brute-force`).
+More info in (How To Write Go Code)[https://golang.org/doc/code.html]
+
+We have provided a build script (`builder.sh`) to build the program easily, generating the program binary (`blackjack`).
 
 
 #### Javascript
