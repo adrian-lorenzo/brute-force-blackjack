@@ -30,8 +30,13 @@ func main() {
 	//Command completion checker
 	if len(args) < 2 {
 		if *help {
-			fmt.Printf("brute-force <Card> <Number of cards>/-intense\n" +
-				"-intense: \t Return the probability from 1 to 8\n -nopick: \t Returns the probability without picking")
+			fmt.Printf("\n\n.\\blackjack <num-first-card> <num-to-take>/-intense" +
+				"\n\nCalculates the probability of not passing if you have one card when taking more in blackjack." +
+				"\n\nOptions:" +
+				"\n\n-help           Prints information about the command." +
+				"\n-intense        Generates the probability of not passing from 1 to 8 cards more taken." +
+				"\n-nopick         The command ignores <num-first-card> argument and calculates the probability" +
+				"\n                without taking any card. It works with -intense option.\n\n")
 			os.Exit(2)
 		} else if (len(args) == 1 && !*intense && !*nopick) || (len(args) == 0 && (!*intense || !*nopick)) {
 			log.Fatal("It's necessary more arguments")
