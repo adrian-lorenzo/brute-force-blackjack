@@ -1,83 +1,39 @@
-function iteratorClass () {
-    let setSize;
-    let combinationSize;
-    let MAX_COMBINATIONS;
-    let currentCombination;
-    let completedCombinations;
-
-    let isNext;
+module.exports = class {
+    constructor(m,n) {
+        this.init(m,n)
+    }
     
-    function init (m, n) {
-        setSize = m;
-        combinationSize = n;
-        currentCombination = [...Array(n).keys()];
-        currentCombination[n-1]--;
-        // completedCombinations = 0;
-        // MAX_COMBINATIONS = calulateCombinations(m, n); 
-        
-        isNext = true;
+    init (m, n) {
+        this.setSize = m;
+        this.isNext = true;
+        this.combinationSize = n;
+        this.currentCombination = [...Array(n).keys()];
+        this.currentCombination[n-1]--;
     }
 
-    function hasNext () {
-        // return completedCombinations < MAX_COMBINATIONS;
-        return isNext;
+    hasNext () {
+        return this.isNext;
     }
 
-    function next () {
-        let i = combinationSize-1
-        if (currentCombination[i] < setSize - combinationSize + i) {
-            currentCombination[i]++;
+    next () {
+        let last = this.combinationSize-1
+        if (this.currentCombination[last] < this.setSize - this.combinationSize + last) {
+            this.currentCombination[last]++;
         } else {
-            let j = i-1;
-            while (currentCombination[j] >= setSize - combinationSize + j) {
-                if (j === 0) {
-                    isNext = false;
+            let j = last;
+            while (this.currentCombination[j] === this.setSize - this.combinationSize + j) {
+                if (j <= 0) {
+                    this.isNext = false;
+                    return this.currentCombination;
                 }
                 j--;
             }
-            currentCombination[j]++;                
-            for (let k = j+1; k < combinationSize; k++) {
-                currentCombination[k] = currentCombination[k - 1] + 1;
+            this.currentCombination[j]++;                
+            for (let k = j+1; k < this.combinationSize; k++) {
+                this.currentCombination[k] = this.currentCombination[k - 1] + 1;
             }
         }
-        return currentCombination;
-    }
-
-    function aNext() {
-        for (let i = 0; i < combinationSize; i++) {
-            if (currentCombination[i] === (setSize - combinationSize + i)) {
-                currentCombination[i-1]++
-                for (let j = i; j < combinationSize; j++) {
-                    currentCombination[j] = currentCombination[j-1] + 1;
-                }
-                break;
-            } else if (i == (combinationSize - 1)) {
-                currentCombination[i]++
-            }
-        }
-        return currentCombination
-    }
-
-
-
-    return {
-        init,
-        hasNext,
-        aNext,
-        next
+        return this.currentCombination;
     }
 }
 
-// function calulateCombinations (m, n) {
-//     let num = m;
-//     let denom = n;
-//     for(let i = m-1; i>m-n; i--) {
-//         num *= i;
-//     }
-//     for(let j = n-1; j>0; j--) {
-//         denom *= j 
-//     }
-//     return num/denom
-// }
-
-module.exports = { iteratorClass };
