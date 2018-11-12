@@ -15,7 +15,7 @@ class iterador:
             self.comb[last] = self.comb[last] + 1
         else:
 
-            j = last - 1
+            j = last
             while self.comb[j] == (self.numberElements - self.size + j ):
                 if j == 0:
                     return False

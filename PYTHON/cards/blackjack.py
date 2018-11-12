@@ -4,12 +4,12 @@ from timeit import default_timer as timer
 
 def blackjack(array,CardValue,count,value):
     if value == 0:
-        for i in range(2,8):
+        for i in range(1,8):
             blackjackProb(array,CardValue,i)
     elif value == 1:
         blackjackProb(array,0,count)
     elif value == 2:
-        for i in range(2,8):
+        for i in range(1,8):
             blackjackProb(array,0,i)
     else:
         blackjackProb(array,CardValue,count)
