@@ -1,4 +1,5 @@
 module.exports = class {
+    
     constructor(m,n) {
         this.init(m,n)
     }

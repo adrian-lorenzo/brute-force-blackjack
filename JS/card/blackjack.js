@@ -1,41 +1,44 @@
 const BLACKJACK = 21;
 
-function shuffle (deck) {
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [deck[i], deck[j]] = [deck[j], deck[i]];
+module.exports = class {
+
+    constructor (deck, givenCard) {
+        this.deck = deck;
+        this.givenCard = givenCard;
+        this.reset()
     }
-    return deck;
-}
 
-function draw(deck, card) {
-    deck.splice(deck.indexOf(card), 1);
-    return deck;
-}
-
-
-function getHand(combination, deck) {
-    return combination.map(item => deck[item]);
-}
-
-function isBlackjack (given, hand) {
-    return hand.reduce(((value, handCard) => (value + handCard)), given) === BLACKJACK;
-}
-
-function getProbabilityToHit(givenCard, iterator, deck) {
-    let wins = 0;
-    let plays = 0;
-    const startTime = parseInt(process.hrtime.bigint())/1e6; 
-    while (iterator.hasNext()) {
-        const hand = getHand(iterator.next(), deck);
-        if (isBlackjack(givenCard, hand)) {
-            wins++;
-        }
-        plays++;
+    reset() {
+        this.draw(this.givenCard);
+        this.shuffle();
     }
-    const endTime = parseInt(process.hrtime.bigint())/1e6;
     
-    return { probability: ((wins / plays) * 100).toFixed(2), benchmark: (endTime - startTime).toFixed(2) };
+    shuffle () {
+        for (let i = this.deck.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
+        }
+    }
+    
+    getProbabilityToHit(iterator) {
+        let wins = 0;
+        let plays = 0;
+        const startTime = parseInt(process.hrtime.bigint())/1e6; 
+        while (iterator.hasNext()) {
+            const hand =this.getHand(iterator.next());
+            if (this.isBlackjack(hand)) {
+                wins++;
+            }
+            plays++;
+        }
+        const endTime = parseInt(process.hrtime.bigint())/1e6;
+        
+        return { probability: ((wins / plays) * 100).toFixed(2), benchmark: (endTime - startTime).toFixed(2) };
+    }
+
+    draw(card) { this.deck.splice(this.deck.indexOf(card), 1); }
+    getHand(combination) { return combination.map(item => this.deck[item]); }
+    isBlackjack (hand) { return hand.reduce(((value, handCard) => (value + handCard)), this.givenCard) <= BLACKJACK }    
 }
 
-module.exports = { shuffle, draw, getHand, isBlackjack, getProbabilityToHit };
+
