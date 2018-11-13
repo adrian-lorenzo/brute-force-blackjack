@@ -6,17 +6,12 @@ module.exports = class {
     
     init (m, n) {
         this.setSize = m;
-        this.isNext = true;
         this.combinationSize = n;
         this.currentCombination = [...Array(n).keys()];
         this.currentCombination[n-1]--;
     }
 
     hasNext () {
-        return this.isNext;
-    }
-
-    next () {
         let last = this.combinationSize-1
         if (this.currentCombination[last] < this.setSize - this.combinationSize + last) {
             this.currentCombination[last]++;
@@ -24,8 +19,7 @@ module.exports = class {
             let j = last;
             while (this.currentCombination[j] === this.setSize - this.combinationSize + j) {
                 if (j <= 0) {
-                    this.isNext = false;
-                    return this.currentCombination;
+                    return false;
                 }
                 j--;
             }
@@ -34,6 +28,10 @@ module.exports = class {
                 this.currentCombination[k] = this.currentCombination[k - 1] + 1;
             }
         }
+        return true
+    }
+
+    next () {
         return this.currentCombination;
     }
 }

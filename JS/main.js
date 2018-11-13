@@ -5,9 +5,10 @@ const Blackjack = require("./card/blackjack");
 
 function main () {
     const { givenCard, numberOfDraws } = getParameters();     
+    let best = { givenCard, handSize: 0, probability: 0}
     numberOfDraws.forEach((handSize) => {
-        const { probability, benchmark } = play(givenCard, handSize)
-        console.log(`The probability of hitting blackjack with a ${givenCard} choosing ${handSize} cards is of ${probability}%. TIME: ${benchmark} ms`);
+        const { probability, benchmark } = play(givenCard, handSize);
+        console.log(`The probability of hitting blackjack having a ${givenCard} choosing ${handSize} cards is of ${probability}%. TIME: ${benchmark} ms`);
     });  
 }
 
@@ -22,9 +23,9 @@ function getParameters () {
 
     if (process.argv.includes("-intense")) {
         if (process.argv.includes("-nopick")) {
-            return { givenCard: 0, numberOfDraws: [...Array(6).keys()].slice(1) }
+            return { givenCard: 0, numberOfDraws: [...Array(7).keys()].slice(1) }
         }
-        return { givenCard: parseInt(process.argv[1]), numberOfDraws: [...Array(6).keys()].slice(1) }
+        return { givenCard: parseInt(process.argv[1]), numberOfDraws: [...Array(7).keys()].slice(1) }
     } 
     if (process.argv.includes("-nopick")) {
         return { givenCard: 0, numberOfDraws: [parseInt(process.argv[1])] }
@@ -40,10 +41,9 @@ function getParameters () {
 
 function play(givenCard, handSize) {
     const deck = readCards("deck.dat");
-    const iterator = new Iterator(deck.length, handSize);
     const play = new Blackjack (deck, givenCard);
+    const iterator = new Iterator(play.deck.length, handSize);
     return play.getProbabilityToHit(iterator);
-       
 }
 
 main();

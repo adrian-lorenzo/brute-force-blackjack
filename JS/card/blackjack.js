@@ -9,7 +9,7 @@ module.exports = class {
     }
 
     reset() {
-        this.draw(this.givenCard);
+        this.draw(this.givenCard)
         this.shuffle();
     }
     
@@ -32,13 +32,13 @@ module.exports = class {
             plays++;
         }
         const endTime = parseInt(process.hrtime.bigint())/1e6;
-        
         return { probability: ((wins / plays) * 100).toFixed(2), benchmark: (endTime - startTime).toFixed(2) };
     }
 
-    draw(card) { this.deck.splice(this.deck.indexOf(card), 1); }
+    draw(card) { return this.deck.splice(this.deck.indexOf(card), 1); }
     getHand(combination) { return combination.map(item => this.deck[item]); }
-    isBlackjack (hand) { return hand.reduce(((value, handCard) => (value + handCard)), this.givenCard) <= BLACKJACK }    
+    isBlackjack (hand) { return hand.reduce(((value, handCard) => (value + handCard)), this.givenCard) <= BLACKJACK }   
+
 }
 
 
