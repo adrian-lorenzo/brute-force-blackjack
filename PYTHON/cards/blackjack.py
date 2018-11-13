@@ -18,9 +18,9 @@ def blackjackProb(array,CardValue,count):
     start = timer()
     wins=0
     plays=0
-    
-    a = iterador(len(array) ,count)
-
+    if CardValue != 0 and count == 1:
+        array.remove(CardValue)
+    a = iterador(len(array),count)
     while a.hasNext():
         hand = a.GetComb()
         result = CardValue
@@ -30,8 +30,9 @@ def blackjackProb(array,CardValue,count):
             wins = wins + 1
         plays = plays + 1
 
+    
     porcentaje =  wins/plays * 100
     end = timer()
-    print("La probabilidad de obtener 21 es: " + str(round(porcentaje, 2)) + "%"
-    "\nEl tiempo de ejecucion del procedimiento es:" + str(round(end - start, 4)) + " segundos")
+    print("La probabilidad de obtener 21 con: " + str(count) + " cartas es: " + str(round(porcentaje, 2)) + "%"
+    "\nEl tiempo de ejecucion del procedimiento es: " + str(round(end - start, 4)) + " segundos")
     
