@@ -1,18 +1,20 @@
 #! /usr/bin/env node
 
-const instructions = require("./fileParser/fileToString")("instructions.txt")
-const readCards = require("./fileParser/fileToArray");
-const Iterator = require("./iterator/iterator");
 const Blackjack = require("./bj/blackjackChecker");
+const Iterator = require("./iterator/iterator");
+const readCards = require("./fileParser/fileToArray");
+const instructions = require("./fileParser/fileToString")("instructions.txt")
 
 function main () {
     const { givenCard, numberOfDraws } = getParameters();    
     numberOfDraws.forEach((handSize) => { 
         const { probability, benchmark } = play(givenCard, handSize);
-        console.log(`The probability of not passing in blackjack with a ${givenCard} choosing${handSize} cards is of ${probability}%.TIME:  ${benchmark} ms`);
+        console.log(`The probability of not passing in blackjack with a ${givenCard} choosing ${handSize} cards is of ${probability} %.TIME: ${benchmark} ms`);
     });  
 }
 
+// Annalises the call of the program and sets the mode to work (-intense, -nopick, -help or none)
+// and gets the parameters of the call
 function getParameters () {
     process.argv.shift();
     process.argv.shift();
@@ -37,9 +39,11 @@ function getParameters () {
         return { givenCard: parseInt(process.argv[0]) , numberOfDraws: [parseInt(process.argv[1])] }
     }
     console.log("ERROR: Bad function invocation, run \"node .\\main.js -help\" for instructions");
-    process.exit(1) 
+    process.exit(1)
+    
 }
 
+// Sets and calculates the probability of a play with a given card and a number of draws
 function play(givenCard, handSize) {
     const deck = readCards("../deck.dat");
     const play = new Blackjack (deck, givenCard);
