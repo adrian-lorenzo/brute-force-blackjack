@@ -3,7 +3,7 @@
 const instructions = require("./fileParser/fileToString")("instructions.txt")
 const readCards = require("./fileParser/fileToArray");
 const Iterator = require("./iterator/iterator");
-const Blackjack = require("./bj/blackjack");
+const Blackjack = require("./bj/blackjackChecker");
 
 function main () {
     const { givenCard, numberOfDraws } = getParameters();     
@@ -37,9 +37,7 @@ function getParameters () {
         return { givenCard: parseInt(process.argv[0]) , numberOfDraws: [parseInt(process.argv[1])] }
     }
     console.log("ERROR: Bad function invocation, run \"node .\\main.js -help\" for instructions");
-    process.exit(1)
-    
-
+    process.exit(1) 
 }
 
 function play(givenCard, handSize) {

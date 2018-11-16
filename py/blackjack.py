@@ -1,6 +1,6 @@
 import sys
 from fileParser.fileReader import fileToArray
-from bj.blackjack import blackjack
+from bj.blackjackChecker import blackjack
 import random
 
 def getParameters(parameters):
