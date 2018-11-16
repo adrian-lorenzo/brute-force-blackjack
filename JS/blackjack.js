@@ -6,8 +6,8 @@ const Iterator = require("./iterator/iterator");
 const Blackjack = require("./bj/blackjackChecker");
 
 function main () {
-    const { givenCard, numberOfDraws } = getParameters();     
-    numberOfDraws.forEach((handSize) => {
+    const { givenCard, numberOfDraws } = getParameters();    
+    numberOfDraws.forEach((handSize) => { 
         const { probability, benchmark } = play(givenCard, handSize);
         console.log(`The probability of hitting blackjack having a ${givenCard} choosing ${handSize} cards is of ${probability}%. TIME: ${benchmark} ms`);
     });  
@@ -30,8 +30,8 @@ function getParameters () {
         return { givenCard: parseInt(process.argv[0]), numberOfDraws: [...Array(7).keys()].slice(1) }
     } 
     if (process.argv.includes("-nopick")) {
-        process.argv.splice(process.argv.indexOf("-intense"), 1);
-        return { givenCard: 0, numberOfDraws: [parseInt(process.argv[1])] }
+        process.argv.splice(process.argv.indexOf("-nopick"), 1);
+        return { givenCard: 0, numberOfDraws: [parseInt(process.argv[0])] }
     }
     if (process.argv.length === 2) {
         return { givenCard: parseInt(process.argv[0]) , numberOfDraws: [parseInt(process.argv[1])] }
