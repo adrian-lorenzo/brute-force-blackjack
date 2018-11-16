@@ -5,9 +5,9 @@ import random
 import logging
 import sys
 
-# Use of argparse for get the parameters of the command line.
-# We define -n for get the int values , -i for intense mode, -np for nopick mode 
-# and 2 intengers for CardValue and count.
+# getParameters - Use of argparse for get the parameters of the command line.
+# We define -i for intense mode, -np for nopick mode 
+# and intengers for CardValue and count.
 def getParameters():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i","--intense", help="Use -i for intense mode: return probability from 1 to 8",

@@ -2,7 +2,8 @@ import random
 import time
 from iterator.iterator import iterador
 
-# blackjack - use as control for run the different's modes
+# blackjack - checks which mode has to be run
+# value is use as flag 
 def blackjack(array,CardValue,count,value):
     if value == 0:
         array.remove(CardValue)
@@ -17,7 +18,8 @@ def blackjack(array,CardValue,count,value):
         array.remove(CardValue)
         blackjackProb(array,CardValue,count)
 
-# blackjackProb - calculates the probability of not passing in blackjack
+# blackjackProb - calculates the probability of not passing in blackjack, 
+# we implement a Brute force algorithm that make all the 
 def blackjackProb(array,CardValue,count):
     start = round(time.time() * 1000)
     wins=0
