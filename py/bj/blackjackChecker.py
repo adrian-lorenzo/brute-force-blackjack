@@ -4,8 +4,8 @@ from iterator.iterator import iterador
 # blackjackProb - calculates the probability of not passing in blackjack, 
 # we implement a Brute force algorithm that calculates the probabilities to have equal or 
 # less than 21 
-def blackjackProb(array,CardValue,count):
-    start = round(time.time() * 1000)
+def blackjackProb(array,cardValue,count):
+    start = time.time()
     wins=0
     plays=0
     a = iterador(len(array),count)
