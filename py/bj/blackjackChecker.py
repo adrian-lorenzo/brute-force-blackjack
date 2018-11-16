@@ -4,6 +4,7 @@ from iterator.iterator import iterador
 
 def blackjack(array,CardValue,count,value):
     if value == 0:
+        array.remove(CardValue)
         for i in range(1,8):
             blackjackProb(array,CardValue,i)
     elif value == 1:
@@ -12,14 +13,13 @@ def blackjack(array,CardValue,count,value):
         for i in range(1,8):
             blackjackProb(array,0,i)
     else:
+        array.remove(CardValue)
         blackjackProb(array,CardValue,count)
 
 def blackjackProb(array,CardValue,count):
     start = round(time.time() * 1000)
     wins=0
     plays=0
-    if CardValue != 0 and count == 1:
-        array.remove(CardValue)
     a = iterador(len(array),count)
     while a.hasNext():
         hand = a.GetComb()
