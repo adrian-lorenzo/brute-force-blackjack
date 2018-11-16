@@ -19,7 +19,8 @@ def blackjack(array,CardValue,count,value):
         blackjackProb(array,CardValue,count)
 
 # blackjackProb - calculates the probability of not passing in blackjack, 
-# we implement a Brute force algorithm that make all the 
+# we implement a Brute force algorithm that calculates the probabilities to have equal or 
+# less than 21 
 def blackjackProb(array,CardValue,count):
     start = round(time.time() * 1000)
     wins=0
