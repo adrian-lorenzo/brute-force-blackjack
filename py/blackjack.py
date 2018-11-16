@@ -12,7 +12,7 @@ def getParameters():
                         action="store_true")
     parser.add_argument("-np","--nopick", help="Use -np for nopick mode: probability without picking any card",
                         action="store_true")
-    parser.add_argument('integers', metavar='N', type=int, nargs='+',
+    parser.add_argument('-integers', metavar='N', type=int, nargs='+',
                          help='an integer')                   
     args = parser.parse_args()
     global cardValue
