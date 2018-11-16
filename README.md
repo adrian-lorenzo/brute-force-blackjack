@@ -28,7 +28,7 @@ We have provided a build script (`builder.sh`) to build the program easily, gene
 
 
 #### Javascript
-It is necessary to use [Node.js 10](https://nodejs.org/en/) to run the script. Use the command: `.\blackjack.js`at the directory of the script.
+It is necessary to use [Node.js 10.13.0](https://nodejs.org/en/) to run the script. Use the command: `./blackjack.js`at the directory of the script.
 
 
 #### Python
