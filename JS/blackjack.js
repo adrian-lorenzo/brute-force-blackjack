@@ -9,7 +9,7 @@ function main () {
     const { givenCard, numberOfDraws } = getParameters();    
     numberOfDraws.forEach((handSize) => { 
         const { probability, benchmark } = play(givenCard, handSize);
-        console.log(`The probability of hitting blackjack having a ${givenCard} choosing ${handSize} cards is of ${probability}%. TIME: ${benchmark} ms`);
+        console.log(`The probability of not passing in blackjack with a ${givenCard} choosing${handSize} cards is of ${probability}%.TIME:  ${benchmark} ms`);
     });  
 }
 
