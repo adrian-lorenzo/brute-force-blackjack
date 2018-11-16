@@ -2,6 +2,7 @@ import random
 import time
 from iterator.iterator import iterador
 
+# blackjack - use as control for run the different's modes
 def blackjack(array,CardValue,count,value):
     if value == 0:
         array.remove(CardValue)
@@ -16,6 +17,7 @@ def blackjack(array,CardValue,count,value):
         array.remove(CardValue)
         blackjackProb(array,CardValue,count)
 
+# blackjackProb - calculates the probability of not passing in blackjack
 def blackjackProb(array,CardValue,count):
     start = round(time.time() * 1000)
     wins=0
