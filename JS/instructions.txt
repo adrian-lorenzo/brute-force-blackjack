@@ -1,14 +1,12 @@
-NAME        
-       node .\main.js - Shows the percentage of hitting Blackjack with a given card
-       and in a number of draws
-SYNOPSIS         
-       node .\main.js [-help] [-intense [FIRST_CARD]] [-nopick [NUMBER OF DRAWS]]  [FIRST_CARD] [NUMBER OF DRAWS]
-DESCRIPTION        
-       This function returns the percentage of hitting Blackjack with a given card
-       and in a number of draws. It also logs the time spent in the algorithm
-OPTIONS         
-       -intense    Shows the probabilities of drawing from 1 to 6 cards and the best. 
 
-       -nopick     No card has been drawn yet.
+.\blackjack.js [-help] [-intense [FIRST_CARD]] [-nopick [NUMBER OF DRAWS]] [FIRST_CARD] [NUMBER OF DRAWS]
 
-       -help       Shows documentation of the program 
+Calculates the probability of not passing if you have one card when taking more in blackjack.
+				
+Options:
+				
+-help           Prints information about the command.
+-intense        Generates the probability of not passing from 1 to 8 cards more taken.
+-nopick         The command ignores [FIRST_CARD] argument and calculates the probability
+		without taking any card. It works with -intense option.
+									

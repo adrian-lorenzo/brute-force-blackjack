@@ -1,7 +1,9 @@
+#! /usr/bin/env node
+
 const instructions = require("./fileParser/fileToString")("instructions.txt")
 const readCards = require("./fileParser/fileToArray");
 const Iterator = require("./iterator/iterator");
-const Blackjack = require("./card/blackjack");
+const Blackjack = require("./bj/blackjack");
 
 function main () {
     const { givenCard, numberOfDraws } = getParameters();     
@@ -40,7 +42,8 @@ function getParameters () {
 }
 
 function play(givenCard, handSize) {
-    const deck = readCards("deck.dat");
+    const deck = readCards("../deck.dat");
+    console.log("ok");
     const play = new Blackjack (deck, givenCard);
     const iterator = new Iterator(play.deck.length, handSize);
     return play.getProbabilityToHit(iterator);
