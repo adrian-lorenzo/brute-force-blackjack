@@ -8,7 +8,7 @@ import (
 )
 
 // ProbabilityCheck - calculates the probability of not passing in blackjack
-// cards []int - Deck of cards, without any cards the player has
+// cards []int - Deck of cards, without the card the player has
 // cardSelected int - The card that the player has
 // numCards int - Number of cards that the player wants
 func ProbabilityCheck(cards []int, cardSelected, numCards int) {

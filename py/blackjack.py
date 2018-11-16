@@ -2,6 +2,8 @@ import argparse
 from fileParser.fileReader import fileToArray
 from bj.blackjackChecker import blackjack
 import random
+import logging
+import sys
 
 # Use of argparse for get the parameters of the command line.
 # We define -n for get the int values , -i for intense mode, -np for nopick mode 
@@ -12,7 +14,7 @@ def getParameters():
                         action="store_true")
     parser.add_argument("-np","--nopick", help="Use -np for nopick mode: probability without picking any card",
                         action="store_true")
-    parser.add_argument('-n','--integers', metavar='N', type=int, nargs='+',
+    parser.add_argument('integers', metavar='N', type=int, nargs='*',
                          help='an integer')                   
     args = parser.parse_args()
     global cardValue
@@ -23,18 +25,21 @@ def getParameters():
         return 2
     if args.intense:
         if not args.integers:
-            logging.Exception("Not enough arguments")
+            logging.exception("Not enough arguments")
+            sys.exit(2)
         count = 0
         cardValue = args.integers[0]
         return 0
     elif args.nopick:
         if not args.integers:
-            logging.Exception("Not enough arguments")
+            logging.exception("Not enough arguments")
+            sys.exit(2)
         cardValue = 0
         count = args.integers[0]
         return 1
     elif len(args.integers) < 2:
-        logging.Exception("Not enough arguments")
+        logging.exception("Not enough arguments")
+        sys.exit(2)
     cardValue = args.integers[0]
     count = args.integers[1]
 
@@ -43,5 +48,6 @@ if __name__ == '__main__':
     nums = fileToArray("../deck.dat")
     random.shuffle(nums)
     blackjack(nums,cardValue,count,value)
+    sys.exit(0)
 
     
