@@ -8,7 +8,7 @@ cardValue = 0 # Value of the card selected
 count = 0 # Number of cards to take
 
 # Use of argparse for get the parameters of the command line.
-# We define -n for get the int values , -i for intense mode, -np for nopick mode 
+# We define for get the int values , -intense for intense mode, -nopick for nopick mode 
 # and 2 intengers for cardValue and count.
 def getParameters():
     parser = argparse.ArgumentParser()
@@ -43,7 +43,8 @@ def getParameters():
     cardValue = args.integers[0]
     count = args.integers[1]
 
-# execBlackjack - use as control for run the different's modes
+# blackjack - checks which mode has to be run
+# value is use as flag 
 def execBlackjack(array,value):
     if value == 0:
         array.remove(cardValue)

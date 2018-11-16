@@ -1,5 +1,6 @@
 class iterador:
 
+    # __init__ - Initializates the iterator
     # numberElements int - Number of elements to combinate with
     # combinationSize int - Size of each combination
     def __init__(self, numberElements, size):
@@ -7,7 +8,7 @@ class iterador:
         self.size = size
         self.reset()
 
-    # GetComb - Return a []int representing one combination
+    # GetComb - Return an Array of ints representing one combination
     def GetComb(self):
         result = self.comb.copy()
         return result

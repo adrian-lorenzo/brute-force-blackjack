@@ -1,3 +1,4 @@
+# fileToArray - Returns a file parsed into an Array of ints
 def fileToArray(name):
     with open(name) as line:
         lines = line.readlines()
