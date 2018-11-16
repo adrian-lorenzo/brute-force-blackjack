@@ -1,5 +1,5 @@
 
-.\blackjack.js [-help] [-intense [FIRST_CARD]] [-nopick [NUMBER OF DRAWS]] [FIRST_CARD] [NUMBER OF DRAWS]
+./blackjack.js [-help] [-intense [FIRST_CARD]] [-nopick [NUMBER OF DRAWS]] [FIRST_CARD] [NUMBER OF DRAWS]
 
 Calculates the probability of not passing if you have one card when taking more in blackjack.
 				

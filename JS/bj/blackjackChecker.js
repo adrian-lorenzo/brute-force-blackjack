@@ -12,7 +12,6 @@ module.exports = class {
     // Draws from the deck the given card already in hand and shuffles a deck  
     reset() {
         this.draw(this.givenCard)
-        this.shuffle();
     }
     
     // Shuffles the deck of the BlackJack Object in a random way
