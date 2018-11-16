@@ -14,14 +14,6 @@ module.exports = class {
         this.draw(this.givenCard)
     }
     
-    // Shuffles the deck of the BlackJack Object in a random way
-    shuffle () {
-        for (let i = this.deck.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
-        }
-    }
-    
     // Brute force Algorithm that calculates the probabilities to have equal or 
     // less total hand value (addition of the values of all the cards currently in hand)
     // than 21 (Not Lose a BlackJack Play)
@@ -36,8 +28,9 @@ module.exports = class {
             }
             plays++;
         }
+
         const endTime = parseInt(process.hrtime.bigint())/1e6;
-        return { probability: ((wins / plays) * 100).toFixed(2), benchmark: (endTime - startTime).toFixed(2) };
+        return { probability: ((wins / plays) * 100).toFixed(6), benchmark: (endTime - startTime).toFixed(0) };
     }
 
     // Removes an element "card" from an array "deck"
@@ -50,5 +43,3 @@ module.exports = class {
     isBlackjack (hand) { return hand.reduce(((value, handCard) => (value + handCard)), this.givenCard) <= BLACKJACK }   
 
 }
-
-

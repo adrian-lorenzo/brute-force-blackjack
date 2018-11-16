@@ -6,9 +6,11 @@ const readCards = require("./fileParser/fileToArray");
 const instructions = require("./fileParser/fileToString")("instructions.txt")
 
 function main () {
-    const { givenCard, numberOfDraws } = getParameters();    
+    const { givenCard, numberOfDraws } = getParameters();  
+    const deck = readCards("../deck.dat"); 
+    const blackjack = new Blackjack (deck, givenCard);
     numberOfDraws.forEach((handSize) => { 
-        const { probability, benchmark } = play(givenCard, handSize);
+        const { probability, benchmark } = play(handSize, blackjack);
         console.log(`The probability of not passing in blackjack with a ${givenCard} choosing ${handSize} cards is of ${probability} %.TIME: ${benchmark} ms`);
     });  
 }
@@ -27,9 +29,9 @@ function getParameters () {
     if (process.argv.includes("-intense")) {
         process.argv.splice(process.argv.indexOf("-intense"), 1)
         if (process.argv.includes("-nopick")) {
-            return { givenCard: 0, numberOfDraws: [...Array(7).keys()].slice(1) }
+            return { givenCard: 0, numberOfDraws: [...Array(9).keys()].slice(1) }
         }
-        return { givenCard: parseInt(process.argv[0]), numberOfDraws: [...Array(7).keys()].slice(1) }
+        return { givenCard: parseInt(process.argv[0]), numberOfDraws: [...Array(9).keys()].slice(1) }
     } 
     if (process.argv.includes("-nopick")) {
         process.argv.splice(process.argv.indexOf("-nopick"), 1);
@@ -44,11 +46,9 @@ function getParameters () {
 }
 
 // Sets and calculates the probability of a play with a given card and a number of draws
-function play(givenCard, handSize) {
-    const deck = readCards("../deck.dat");
-    const play = new Blackjack (deck, givenCard);
-    const iterator = new Iterator(play.deck.length, handSize);
-    return play.getProbabilityToHit(iterator);
+function play(handSize, blackjack) {
+    const iterator = new Iterator(blackjack.deck.length, handSize);
+    return blackjack.getProbabilityToHit(iterator);
 }
 
 main();

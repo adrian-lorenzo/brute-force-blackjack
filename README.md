@@ -24,7 +24,7 @@ Remember to set the project at `$GOPATH/src/github.com/adrianlorenzodev/brute-fo
 
 More info in [How To Write Go Code](https://golang.org/doc/code.html)
 
-We have provided a build script (`builder.sh`) to build the program easily, generating the program binary (`blackjack`).
+We have provided a build script (`builder.sh`) to build the program easily, generating the program binary (`blackjack`). To run it use the following command: `./blackjack`
 
 
 #### Javascript
@@ -32,4 +32,4 @@ It is necessary to use [Node.js 10.13.0](https://nodejs.org/en/) to run the scri
 
 
 #### Python
-In this case, we also recommend you to use [Python 3](https://www.python.org/download/releases/3.0/) to run the script. At the directory of the script, the command to run it is `python3 blackjack.py`.
+In this case,you will have to use the last version [Python 3](https://www.python.org/download/releases/3.0/) to run the script. At the directory of the script, the command to run it is `./blackjack.py`.
