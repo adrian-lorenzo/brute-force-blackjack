@@ -1,4 +1,4 @@
-# brute-force
+# brute-force-blackjack
 ### Project for algorithm analysis practice of brute-force strategies in Go, Javascript and Python
 
 CLI program that calculates the probability of not passing if you have one card when taking more in blackjack.
